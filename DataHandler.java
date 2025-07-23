@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class DataHandler {
@@ -34,23 +36,42 @@ public class DataHandler {
         } while (!access);
         System.out.println("Login successful.\nWelcome!!");
 
-        //student details
-        System.out.print("Enter the name of the student: ");
-        String name = sc.nextLine();
-        System.out.print("Enter the roll no. of the student: ");
-        int rollNo = sc.nextInt();
+        //choice
+        System.out.print("What do you want to do today?\n" +
+                "1 -> Enter marks\n" +
+                "2 -> View Grades\n" +
+                "3 -> View Percentage\n" +
+                "4 -> Get Total Marks");
+        int choice = sc.nextInt();
+        sc.nextLine();
 
-        int[] marks = new int[5];
+        //Enter the data
+        if (choice == 1) {
+            //student details
+            System.out.print("Enter the name of the student: ");
+            String name = sc.nextLine();
+            System.out.print("Enter the roll no. of the student: ");
+            int rollNo = sc.nextInt();
 
-        //adding marks in array
-        for (int i = 0; i < marks.length; i++) {
-            System.out.printf("Enter the marks for subject %d : ", i + 1);
-            marks[i] = sc.nextInt();
+            int[] marks = new int[5];
+
+            //adding marks in array
+            for (int i = 0; i < marks.length; i++) {
+                System.out.printf("Enter the marks for subject %d : ", i + 1);
+                marks[i] = sc.nextInt();
+            }
+            Student s = new Student(name, rollNo, marks);
+
+            //To CSV
+            try (FileWriter fw = new FileWriter("Student.csv", true)) {
+                fw.write(s.toCSV() + "\n");
+            } catch (IOException e) {
+                System.out.println("❌ Error saving student data: " + e.getMessage());
+            }
+
+
         }
 
-        Student s = new Student(name, rollNo,marks);
-
-        
 
     }
 }

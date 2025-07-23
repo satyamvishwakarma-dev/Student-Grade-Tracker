@@ -33,7 +33,12 @@ public class Student {
     }
 
     public String toCSV(){
-        return name+","+rollNo+","+marks[0]+","+marks[1]+","+marks[2]+","+marks[3]+","+marks[4];
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(",").append(rollNo);
+        for (int i = 0; i < marks.length; i++) {
+            sb.append(",").append(marks[i]);
+        }
+        return sb.toString();
     }
 
 }
