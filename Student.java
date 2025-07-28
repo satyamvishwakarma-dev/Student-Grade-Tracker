@@ -11,14 +11,14 @@ public class Student {
 
     public double getTotal(){
         int sum = 0;
-        for (int i = 0; i < marks.length; i++) {
-            sum += marks[i];
+        for (int i : marks) {
+            sum += i;
         }
         return sum;
     }
 
-    public double getAvg(){
-        return getTotal()/marks.length;
+    public double getAvg(){     //this will also give the percentage of the marks
+        return (double) getTotal()/marks.length;
     }
 
     public String getGrade(){
@@ -35,10 +35,9 @@ public class Student {
     public String toCSV(){
         StringBuilder sb = new StringBuilder();
         sb.append(name).append(",").append(rollNo);
-        for (int i = 0; i < marks.length; i++) {
-            sb.append(",").append(marks[i]);
+        for (int i : marks) {
+            sb.append(",").append(i);
         }
         return sb.toString();
     }
-
 }
